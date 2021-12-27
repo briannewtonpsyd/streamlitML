@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit as st
 import s3fs
 import os
+import tempfile
 
 from flair.data import Sentence
 from flair.models import TextClassifier
