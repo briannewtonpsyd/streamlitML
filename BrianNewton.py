@@ -47,7 +47,7 @@ Please choose a section from the dropdown in the left navbar, each one represent
 
         # Load classification model
         with st.spinner('Loading classification model...'):
-            classifier = load_model('best-model.pt')
+            classifier = load_model('streamlitbucket-brinew-nlp/best-model.pt')
 
         ### SINGLE TWEET CLASSIFICATION ###
         st.subheader('This project uses Natural Language processing to predict the emotion expressed by a sentence.')
