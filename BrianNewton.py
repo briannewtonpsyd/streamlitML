@@ -4,6 +4,8 @@ import numexpr as ne
 import numpy as np
 import pandas as pd
 import streamlit as st
+import s3fs
+import os
 
 from flair.data import Sentence
 from flair.models import TextClassifier
@@ -45,7 +47,7 @@ Please choose a section from the dropdown in the left navbar, each one represent
 
         # Load classification model
         with st.spinner('Loading classification model...'):
-            classifier = load_model('models/best-model.pt')
+            classifier = load_model('best-model.pt')
 
         ### SINGLE TWEET CLASSIFICATION ###
         st.subheader('This project uses Natural Language processing to predict the emotion expressed by a sentence.')
@@ -143,9 +145,13 @@ def cosine_vectorized(array1, array2):
 
 @st.cache(allow_output_mutation=True)
 def load_model(model):
-    classifier = TextClassifier.load(model)
+    # Create connection object.
+    # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
+    fs = s3fs.S3FileSystem(anon=False)
     
-    return classifier
+    with fs.open(model) as f:
+        classifier = TextClassifier.load(f)
+        return classifier
 
 def preprocess(text):
     # Preprocess function
