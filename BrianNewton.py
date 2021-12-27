@@ -149,9 +149,8 @@ def load_model(model):
     # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
     fs = s3fs.S3FileSystem(anon=False)
     
-    with fs.open(model) as f:
-        classifier = TextClassifier.load(fs.open("s3://" + model, "rb"))
-        return classifier
+    classifier = TextClassifier.load(fs.open("s3://" + model, "rb"))
+    return classifier
 
 def preprocess(text):
     # Preprocess function
