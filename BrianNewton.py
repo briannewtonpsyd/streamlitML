@@ -150,7 +150,7 @@ def load_model(model):
     fs = s3fs.S3FileSystem(anon=False)
     
     with fs.open(model) as f:
-        classifier = TextClassifier.load(s3.open("s3://" + model, "rb"))
+        classifier = TextClassifier.load(fs.open("s3://" + model, "rb"))
         return classifier
 
 def preprocess(text):
